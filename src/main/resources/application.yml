@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    function:
+      definition: sendTestData;concatFn
+    stream:
+      bindings:
+        sendTestData-out-0:
+          destination: my-foo
+        concatFn-in-0:
+          destination: my-foo
+        concatFn-out-0:
+          destination: my-foo-out
+      kafka:
+        streams:
+          binder:
+            application-id: multi-binder-kafka-streams-123
+            configuration:
+              spring.json.value.default.type: com.example.kafkastreamsinterceptors.LocationSupplierSource
+              default:
+                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value.serde: org.springframework.kafka.support.serializer.JsonSerde
